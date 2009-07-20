@@ -1,7 +1,9 @@
-OpenTox Compounds
-=================
+OpenTox Compounds (Cactus)
+==========================
 
-* A thin wrapper around the CACTUS REST webservice (http://cactus.nci.nih.gov/chemical/structure).
+* An OpenTox REST Webservice
+
+* Thin wrapper around the CACTUS REST webservice (http://cactus.nci.nih.gov/chemical/structure).
 
 * Implements a subset of the OpenTox compounds API (http://opentox.org/wiki/opentox/Structure).
 
