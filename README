@@ -1,0 +1,13 @@
+OpenTox Compounds
+=================
+
+* A thin wrapper around the CACTUS REST webservice (http://cactus.nci.nih.gov/chemical/structure).
+
+* Implements a subset of the OpenTox compounds API (http://opentox.org/wiki/opentox/Structure).
+
+* Requirements:
+
+	- Sinatra (http://www.sinatrarb.com/),
+	- sinatra-url-for (http://github.com/emk/sinatra-url-for/)
+	- RestClient (http://rest-client.heroku.com/)
+	- Rack::Test (http://github.com/brynary/rack-test/) for the tests
