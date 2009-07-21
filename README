@@ -7,6 +7,10 @@ OpenTox Compounds (Cactus)
 
 * Implements a subset of the OpenTox compounds API (http://opentox.org/wiki/opentox/Structure).
 
+* Runs at http://webservices.in-silico.ch/compounds
+
+* No documentation yet, have a look at compounds.rb - it should be self-explanatory.
+
 * Requirements:
 
 	- Sinatra (http://www.sinatrarb.com/),
