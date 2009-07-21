@@ -67,6 +67,7 @@ post '/' do
 			url_for("/", :full) + inchikey
 		end
 	rescue
+		status 500
 		"Cannot find an InChI Key for #{params[:name]}."
 	end
 end
