@@ -18,7 +18,7 @@ end
 
 get '/*.*' do
 	begin
-		identifier = params[:splat][0]
+		identifier = URI.encode(params[:splat][0])
 		format = params[:splat][1]
 		case format 
 		when 'smiles'
@@ -32,7 +32,7 @@ get '/*.*' do
 		when 'names'
 			RestClient.get "#{CACTUS_URI}#{identifier}/names"
 		when 'image'
-			RestClient.get "#{CACTUS_URI}#{identifier}/image"
+			"#{CACTUS_URI}#{identifier}/image"
 		else
 			status 400
 			"Cannot provide #{format}."
@@ -48,7 +48,7 @@ end
 # default format is smiles
 get '/:identifier' do
 	begin
-		RestClient.get "#{CACTUS_URI}#{params[:identifier]}/smiles"
+		RestClient.get "#{CACTUS_URI}#{URI.encode(params[:identifier])}/smiles"
 	rescue
 		status 404
 		"Cannot find #{params[:identifier]}."
@@ -58,13 +58,13 @@ end
 # return canonical uri
 post '/' do
 	begin
-		inchikey = RestClient.get "#{CACTUS_URI}#{params[:name]}/stdinchikey"
+		inchikey = RestClient.get "#{CACTUS_URI}#{URI.encode(params[:name])}/stdinchikey"
 		inchikey.chomp!
 		if inchikey.match(/\n/)
 			status 400
-			"More than one structure found for #{params[:identifier]}."
+			"More than one structure found for #{params[:name]}."
 		else
-			url_for("/", :full) + inchikey
+			url_for("/", :full) + URI.encode(inchikey)
 		end
 	rescue
 		status 500
