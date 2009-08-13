@@ -1,19 +1,65 @@
-OpenTox Compounds (Cactus)
-==========================
+OpenTox Compounds
+=================
 
-* An OpenTox REST Webservice
+* An OpenTox REST Webservice (http://www.opentox.org)
 
-* Thin wrapper around the CACTUS REST webservice (http://cactus.nci.nih.gov/chemical/structure).
+* Uses OpenBabel (http://openbabel.sf.net) and the CACTUS REST webservice (http://cactus.nci.nih.gov/chemical/structure).
 
 * Implements a subset of the OpenTox compounds API (http://opentox.org/wiki/opentox/Structure).
 
 * Runs at http://webservices.in-silico.ch/compounds
 
-* No documentation yet, have a look at compounds.rb - it should be self-explanatory.
+REST API
 
-* Requirements:
+Description             Method  URI                   Parameters  Result          Status codes
 
-	- Sinatra (http://www.sinatrarb.com/),
-	- sinatra-url-for (http://github.com/emk/sinatra-url-for/)
-	- RestClient (http://rest-client.heroku.com/)
-	- Rack::Test (http://github.com/brynary/rack-test/) for the tests
+Get a representation    GET     /{id}                             Compound        200, 500
+of the structure                                                  representation 
+
+Representation defaults to Smiles. InChI, sdf, gif-images and names/synonyms are currently supported
+To select a representation you can
+  - add the desired extension (smiles|inchi|sdf|imag|names) to the URI, e.g. /{id}.names to get all names 
+  - or select the desired mime/type in the request header
+
+Create the URI for a    POST    /                     smiles or   Compound URI    200, 500
+compound                                              name
+
+Compounds can be initialized by smiles or name, names can be anything that identifies a compound
+(e.g. InChI, InChI Key, CAS, synonyms)
+
+Match a Smarts string   GET     /{id}/match/{smarts}  -           true|false      200, 500
+
+Make sure to URI encode the smarts string!
+
+Indexing (i.e. GET /) and deletion operations are not supported, because objects are not stored.
+
+EXAMPLES
+
+Create an URI for Benzene:
+
+  curl -X POST name=Benzene http://webservices.in-silico.ch/compounds
+
+Create an URI for Benzene from the Smiles string:
+
+  curl -X POST smiles='c1ccccc1' http://webservices.in-silico.ch/compounds
+
+Get all synonyms for benzene:
+
+  curl http://webservices.in-silico.ch/compounds/c1ccccc1.names
+
+Get the SDF File:
+
+  curl http://webservices.in-silico.ch/compounds/c1ccccc1.sdf
+
+Can we find a nitrogen in benzene?
+
+  curl http://webservices.in-silico.ch/compounds/c1ccccc1/match/N
+
+  Please make sure that smarts strings are URI encoded!
+
+
+INSTALLATION
+
+Run 'rake install' to install the required gems and openbabel
+
+Copyright (c) 2009 Christoph Helma. See LICENSE for details.
