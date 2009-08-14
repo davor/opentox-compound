@@ -7,7 +7,7 @@ OpenTox Compounds
 
 * Implements a subset of the OpenTox compounds API (http://opentox.org/wiki/opentox/Structure).
 
-* Runs at http://webservices.in-silico.ch/compounds
+* This version runs at http://webservices.in-silico.ch/compound/v0
 
 REST API
 
@@ -37,23 +37,23 @@ EXAMPLES
 
 Create an URI for Benzene:
 
-  curl -X POST name=Benzene http://webservices.in-silico.ch/compounds
+  curl -X POST name=Benzene http://webservices.in-silico.ch/compound/v0
 
 Create an URI for Benzene from the Smiles string:
 
-  curl -X POST smiles='c1ccccc1' http://webservices.in-silico.ch/compounds
+  curl -X POST smiles='c1ccccc1' http://webservices.in-silico.ch/compound/v0
 
 Get all synonyms for benzene:
 
-  curl http://webservices.in-silico.ch/compounds/c1ccccc1.names
+  curl http://webservices.in-silico.ch/compound/v0/c1ccccc1.names
 
 Get the SDF File:
 
-  curl http://webservices.in-silico.ch/compounds/c1ccccc1.sdf
+  curl http://webservices.in-silico.ch/compound/v0/c1ccccc1.sdf
 
 Can we find a nitrogen in benzene?
 
-  curl http://webservices.in-silico.ch/compounds/c1ccccc1/match/N
+  curl http://webservices.in-silico.ch/compound/v0/c1ccccc1/match/N
 
   Please make sure that smarts strings are URI encoded!
 
