@@ -39,13 +39,13 @@ get %r{/(.+)} do |cansmi| # catches all remaining get requests
 	end
 end
 
-post '/' do 
+post '/?' do 
 	if params[:smiles]
-		cansmi = canonical_smiles(URI.unescape(params[:smiles]),'smi').gsub(/\s+/,'')
+		cansmi = canonical_smiles(URI.unescape(params[:smiles]),'smi')
 	elsif params[:name]
 		cansmi = RestClient.get "#{CACTUS_URI}#{params[:name]}/smiles"
 	end
-	url_for("/", :full) + URI.escape(cansmi, /[^\w]/)
+	url_for("/", :full) + URI.escape(cansmi.gsub(/\s+/,''), /[^\w]/)
 end
 
 def canonical_smiles(identifier,format)

@@ -37,11 +37,11 @@ EXAMPLES
 
 Create an URI for Benzene:
 
-  curl -X POST name=Benzene http://webservices.in-silico.ch/compound/v0
+  curl -X POST -d name=Benzene http://webservices.in-silico.ch/compound/v0
 
 Create an URI for Benzene from the Smiles string:
 
-  curl -X POST smiles='c1ccccc1' http://webservices.in-silico.ch/compound/v0
+  curl -X POST -d smiles='c1ccccc1' http://webservices.in-silico.ch/compound/v0
 
 Get all synonyms for benzene:
 
