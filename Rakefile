@@ -1,10 +1,12 @@
 require 'rubygems'
 require 'rake'
 
+@gems = "sinatra rest-client emk-sinatra-url-for cehoffman-sinatra-respond_to"
+
 desc "Install required gems and openbabel"
 task :install do
 	puts `sudo gem sources -a http://gems.github.com`
-	puts `sudo gem install sinatra rest-client emk-sinatra-url-for cehoffman-sinatra-respond_to`
+	puts `sudo gem install #{@gems}`
 	begin
 		require 'openbabel'
 		puts "Openbabel is already installed"

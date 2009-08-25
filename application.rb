@@ -2,6 +2,7 @@
 	require lib
 end
 
+mime :uid, "text/plain"
 mime :smiles, "chemical/x-daylight-smiles"
 mime :inchi, "chemical/x-inchi"
 mime :sdf, "chemical/x-mdl-sdfile"
@@ -9,6 +10,8 @@ mime :image, "image/gif"
 mime :names, "text/plain"
 
 CACTUS_URI="http://cactus.nci.nih.gov/chemical/structure/"
+
+set :default_content, :smiles
 
 get '/*/match/*' do
 	smiles = URI.decode(params[:splat][0])
@@ -29,8 +32,7 @@ end
 
 get %r{/(.+)} do |cansmi| # catches all remaining get requests
 	respond_to do |format|
-		format.html   { URI.unescape(cansmi).chomp }
-		format.text   { URI.unescape(cansmi).chomp }
+		format.uid   { URI.escape(cansmi, /[^#{URI::PATTERN::UNRESERVED}]/) }
 		format.smiles { URI.unescape(cansmi).chomp }
 		format.names  { RestClient.get "#{CACTUS_URI}#{cansmi}/names" }
 		format.inchi  { RestClient.get "#{CACTUS_URI}#{cansmi}/stdinchi" }
@@ -45,7 +47,7 @@ post '/?' do
 	elsif params[:name]
 		cansmi = RestClient.get "#{CACTUS_URI}#{params[:name]}/smiles"
 	end
-	url_for("/", :full) + URI.escape(cansmi.gsub(/\s+/,''), /[^\w]/)
+	url_for("/", :full) + URI.escape(cansmi.gsub(/\s+/,''), /[^#{URI::PATTERN::UNRESERVED}]/)
 end
 
 def canonical_smiles(identifier,format)
