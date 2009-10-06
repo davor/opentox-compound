@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'rake'
+require 'opentox-ruby-api-wrapper'
+require 'tasks/opentox'
 
 @gems = "sinatra rest-client emk-sinatra-url-for cehoffman-sinatra-respond_to"
 
@@ -36,6 +38,6 @@ end
 
 desc "Run tests"
 task :test do
-	load 'test.rb'
+	load 'test/test.rb'
 end
 
