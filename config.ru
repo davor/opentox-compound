@@ -4,7 +4,10 @@ require 'application.rb'
 require 'rack'
 require 'rack/contrib'
 
-FileUtils.mkdir_p 'log' unless File.exists?('log')
+['public','log','tmp'].each do |dir|
+	FileUtils.mkdir_p dir unless File.exists?(dir)
+end
+
 log = File.new("log/#{ENV["RACK_ENV"]}.log", "a")
 $stdout.reopen(log)
 $stderr.reopen(log)
