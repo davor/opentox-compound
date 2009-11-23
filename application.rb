@@ -22,6 +22,20 @@ get %r{/(.+)} do |inchi| # catches all remaining get requests
 end
 
 post '/?' do 
+
+	input =	request.env["rack.input"].read
+	case request.content_type
+	when /chemical\/x-daylight-smiles/
+		OpenTox::Compound.new(:smiles => input).uri
+	when /chemical\/x-inchi/
+		OpenTox::Compound.new(:inchi => input).uri
+	when /text\/plain/
+		OpenTox::Compound.new(:name => input).uri
+	else
+		status 400
+		"Unsupported MIME type #{request.content_type}"
+	end
+=begin
 	if params[:smiles]
 		OpenTox::Compound.new(:smiles => params[:smiles]).uri
 	elsif params[:inchi]
@@ -29,4 +43,5 @@ post '/?' do
 	elsif params[:name]
 		OpenTox::Compound.new(:name => params[:name]).uri
 	end
+=end
 end
