@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'opentox-ruby-api-wrapper'
 
+CACTUS_URI="http://cactus.nci.nih.gov/chemical/structure/"
+
 get %r{/(.+)} do |inchi| # catches all remaining get requests
 	inchi = URI.unescape request.env['REQUEST_URI'].sub(/^\//,'') # hack to avoid sinatra's URI/CGI unescaping, splitting, ..."
 	case request.env['HTTP_ACCEPT']
@@ -15,7 +17,7 @@ get %r{/(.+)} do |inchi| # catches all remaining get requests
 	when "image/gif"
 		"#{CACTUS_URI}#{inchi}/image" 
 	when "text/plain"
-		RestClient.get "#{CACTUS_URI}#{inchi}/names" 
+		RestClient.get("#{CACTUS_URI}#{inchi}/names").to_s
 	else
 		status 400
 		"Unsupported MIME type '#{request.content_type}'"
