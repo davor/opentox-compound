@@ -2,8 +2,19 @@ OpenTox Compounds
 =================
 
 * An OpenTox REST Webservice (http://www.opentox.org)
-* Implements the OpenTox compounds API 
+* Implements the OpenTox compound API 1.1 (http://opentox.org/dev/apis/api-1.1/structure)
 
-Documentation: Source code (application.rb)
+REST operations:
 
-Copyright (c) 2009 Christoph Helma. See LICENSE for details.
+Get the representation of a compound 	GET 	/compound/{id} 	- 												Compound representation		200,404,503
+Create a new compound 							 	POST 	/compound 			Compound representation		URIs for new compounds 		200,400,503
+
+Supported MIME formats (http://chemical-mime.sourceforge.net/):
+
+	* chemical/x-daylight-smiles (default)
+	* chemical/x-inchi
+	* chemical/x-mdl-sdfile
+	* text/plain (chemical names)
+	* link to image/gif (output only)
+
+Installation: http://wiki.github.com/helma/opentox-documentation/installation-of-opentox-webservices
