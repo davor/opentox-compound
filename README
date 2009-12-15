@@ -6,8 +6,8 @@ OpenTox Compounds
 
 REST operations:
 
-Get the representation of a compound 	GET 	/compound/{id} 	- 												Compound representation		200,404,503
-Create a new compound 							 	POST 	/compound 			Compound representation		URIs for new compounds 		200,400,503
+Get the representation of a compound 	GET 	/compound/{id} 	- 												Compound representation		200,404,500
+Create a new compound 							 	POST 	/compound 			Compound representation		URIs for new compounds 		200,400,500
 
 Supported MIME formats (http://chemical-mime.sourceforge.net/):
 
