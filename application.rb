@@ -1,5 +1,5 @@
 require 'rubygems'
-gem 'opentox-ruby-api-wrapper', '=1.1.3'
+gem 'opentox-ruby-api-wrapper', '~>1.2'
 require 'opentox-ruby-api-wrapper'
 
 CACTUS_URI="http://cactus.nci.nih.gov/chemical/structure/"
